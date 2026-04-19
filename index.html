@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda - George y Yulimar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --fondo-crema: #fdf6e3; 
+            --fondo-beige: #f5e6d3; 
+            --dorado-principal: #d9ac62; 
+            --dorado-oscuro: #b88a4d; 
+            --texto-oscuro: #5a4a3a; 
+            --tarjeta-clara: rgba(255, 255, 255, 0.95); 
+            --borde-tarjeta: rgba(217, 172, 98, 0.3); 
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--texto-oscuro); 
+            text-align: center; 
+            overflow-x: hidden; 
+            position: relative;
+            background: linear-gradient(-45deg, #fdf6e3, #f5e6d3, #ffe0b2, #fdf6e3);
+            background-size: 400% 400%;
+            animation: gradientBGBody 15s ease infinite;
+        }
+
+        @keyframes gradientBGBody {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+
+        .music-control {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: var(--dorado-principal); color: white;
+            width: 55px; height: 55px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid white; transition: 0.3s;
+            font-size: 24px;
+        }
+
+        #pantalla-inicio {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(-45deg, #fdf6e3, #f5e6d3, #ffe0b2, #d9ac62);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10000; transition: 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+            padding: 20px;
+        }
+        #pantalla-inicio.ocultar { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.1); }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .petalo-inicio { position: absolute; background-color: rgba(217, 172, 98, 0.6); border-radius: 50% 0 50% 50%; animation: caer linear infinite; z-index: -1; }
+        @keyframes caer { 0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { top: 110%; transform: translateX(100px) rotate(360deg); opacity: 0; } }
+
+        .cuadro-entrada {
+            background-color: var(--tarjeta-clara); padding: 35px 25px; border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid var(--borde-tarjeta);
+            max-width: 320px; width: 85%; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .corazon-svg { width: 80px; height: 80px; fill: var(--dorado-principal); margin-bottom: 20px; animation: latido 1.2s infinite ease-in-out; }
+        @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .btn-entrar {
+            padding: 14px 35px; font-size: 0.95rem; font-weight: 700; color: white;
+            text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(135deg, #d9ac62 0%, #b88a4d 100%);
+            border: none; border-radius: 50px; cursor: pointer;
+        }
+
+        .hero { 
+            height: 100vh;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(255,255,255,0.5) 100%), url('https://i.postimg.cc/HW5K3BQK/Whats-App-Image-2026-04-04-at-11-20-56-PM.jpg'); 
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white;
+        }
+        .hero h1 { font-family: 'Great Vibes', cursive; font-size: 5rem; margin: 0; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); }
+
+        .content { padding: 0 20px; max-width: 500px; margin: 0 auto; position: relative; z-index: 1; }
+        .card { background: var(--tarjeta-clara); padding: 35px 20px; border-radius: 20px; margin-bottom: 35px; border: 1px solid var(--borde-tarjeta); border-top: 5px solid var(--dorado-principal); }
+        .card h3 { font-family: 'Playfair Display', serif; color: var(--dorado-oscuro); margin-bottom: 15px; }
+
+        .btn-mapa, .btn-calendario { 
+            display: inline-block; padding: 12px 25px; background: var(--dorado-principal); color: white; 
+            text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-top: 15px;
+        }
+
+        .framed-img { width: 100%; border: 5px solid var(--dorado-principal); border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px 0; box-sizing: border-box; }
+
+        .counter { display: flex; justify-content: center; gap: 10px; padding: 40px 0; }
+        .time-box { background: white; padding: 15px 10px; min-width: 70px; border-radius: 15px; border: 1px solid var(--dorado-principal); }
+        .time-box b { display: block; font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--dorado-oscuro); line-height: 1; }
+
+        .rsvp-section { padding: 80px 20px; background: var(--fondo-beige); border-radius: 50px 50px 0 0; position: relative; z-index: 1; }
+        .rsvp-card { 
+            background: white; padding: 50px 35px; border-radius: 30px; 
+            border: 1px solid var(--dorado-principal); box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 450px; margin: 0 auto;
+        }
+        .rsvp-card h2 { font-family: 'Great Vibes', cursive; font-size: 4rem; color: var(--dorado-oscuro); margin: 0 0 15px 0; }
+        .rsvp-card p { font-size: 1.1rem; color: var(--texto-oscuro); margin-bottom: 35px; }
+        
+        .input-group { margin-bottom: 30px; text-align: left; position: relative; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--dorado-oscuro); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .input-name { width: 100%; padding: 18px 20px 18px 50px; border-radius: 15px; border: 2px solid #eee; box-sizing: border-box; font-family: 'Montserrat'; font-size: 1rem; background: #fafafa; transition: border-color 0.3s; }
+        .input-name:focus { border-color: var(--dorado-principal); outline: none; }
+        .input-icon { position: absolute; left: 18px; top: 48px; color: var(--dorado-principal); font-size: 1.2rem; }
+
+        .asistencia-options { display: flex; justify-content: space-around; margin-bottom: 35px; }
+        .asistencia-option { display: flex; align-items: center; cursor: pointer; }
+        .asistencia-option input { display: none; }
+        .custom-radio { width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 50%; margin-right: 10px; position: relative; transition: border-color 0.3s; }
+        .custom-radio::after { content: ''; position: absolute; top: 4px; left: 4px; width: 12px; height: 12px; background-color: var(--dorado-principal); border-radius: 50%; transform: scale(0); transition: transform 0.3s; }
+        .asistencia-option input:checked + .custom-radio { border-color: var(--dorado-principal); }
+        .asistencia-option input:checked + .custom-radio::after { transform: scale(1); }
+        .asistencia-label { font-size: 1rem; font-weight: 600; color: var(--texto-oscuro); }
+        
+        .btn-confirm { width: 100%; padding: 20px; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--dorado-principal), var(--dorado-oscuro)); color: white; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: transform 0.3s; }
+        .btn-confirm:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(217, 172, 98, 0.6); }
+
+        .animated { animation: fadeInUp 1.2s ease-out forwards; opacity: 0; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="music-control" onclick="toggleMusica()" id="btnMusica">
+        <span id="iconoMusica">🔇</span>
+    </div>
+
+    <div id="pantalla-inicio">
+        <script>for(let i=0; i<12; i++){ document.write('<div class="petalo-inicio" style="left:'+Math.random()*100+'%; width:'+(10+Math.random()*10)+'px; height:'+(10+Math.random()*10)+'px; animation-duration:'+(5+Math.random()*5)+'s; animation-delay:'+Math.random()*3+'s"></div>'); }</script>
+        <div class="cuadro-entrada">
+            <svg class="corazon-svg" viewBox="0 0 32 32"><path d="M16 28.5L14.1 26.7C7.33 20.55 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.59 1.08 6 2.8C17.91 5.08 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.05-11.1 15.2L16 28.5z"/></svg>
+            <p style="font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 25px;">La felicidad es solo real cuando se comparte. Te invitamos a ser parte de nuestra historia.</p>
+            <button class="btn-entrar" onclick="comenzarTodo()">Abrir Invitación</button>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 class="animated">George & Yulimar</h1>
+        <p class="animated" style="font-family: 'Great Vibes', cursive; font-size: 2rem;">"El amor es el ingrediente que hace que la vida sea un viaje maravilloso"</p>
+    </div>
+
+    <div class="counter animated">
+        <div class="time-box"><b id="dias">00</b><small>Días</small></div>
+        <div class="time-box"><b id="horas">00</b><small>Hrs</small></div>
+        <div class="time-box"><b id="min">00</b><small>Min</small></div>
+        <div class="time-box"><b id="seg">00</b><small>Seg</small></div>
+    </div>
+
+    <div class="content">
+        <div class="card animated">
+            <h3>📅 Cuándo</h3>
+            <p>Sábado, 16 de Mayo de 2026<br>A las 16:00 PM</p>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+George+y+Yulimar&dates=20260516T200000Z/20260517T040000Z&location=Club+Familiar+La+Primavera" target="_blank" class="btn-calendario">📅 AGENDAR EN CALENDARIO</a>
+        </div>
+
+        <div class="card animated">
+            <h3>📍 Ubicación</h3>
+            <p><b>Club Familiar La Primavera</b><br>Aguas Calientes, Mariara, Carabobo.</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=10.289778,-67.703972" target="_blank" class="btn-mapa">VER EN GOOGLE MAPS</a>
+        </div>
+
+        <img src="https://i.postimg.cc/kXvHPGYG/Whats-App-Image-2026-04-04-at-11-19-16-PM.jpg" class="framed-img animated">
+
+        <div class="card animated">
+            <h3>🥂 Brindis</h3>
+            <p>Contamos con todo lo necesario para celebrar en grande. <b>Si deseas disfrutar de tu bebida favorita, te invitamos a traerla</b> para brindar juntos.</p>
+        </div>
+
+        <div class="card animated">
+            <h3>🤵 Vestimenta</h3>
+            <p>Agradecemos asistir de <b>Blanco Riguroso</b>.</p>
+        </div>
+
+        <div class="card animated">
+            <h3>🎁 Detalles</h3>
+            <p>Tu presencia es nuestro regalo. <b>Si deseas tener un detalle</b>, recibiremos aportes en efectivo o utensilios para nuestro hogar.</p>
+        </div>
+
+        <img src="https://i.postimg.cc/6QYb2PJk/Whats-App-Image-2026-04-04-at-11-13-41-PM.jpg" class="framed-img animated">
+    </div>
+
+    <div class="rsvp-section animated">
+        <div class="rsvp-card">
+            <h2>¿Nos acompañas?</h2>
+            <p>Confirma tu asistencia antes del 16 de Abril de 2026 vía WhatsApp</p>
+            <div class="input-group">
+                <label>Tu Nombre Completo</label>
+                <span class="input-icon">👤</span>
+                <input type="text" id="nombreInvitado" class="input-name" placeholder="Ej: Juan Pérez">
+            </div>
+            
+            <div class="asistencia-options">
+                <label class="asistencia-option">
+                    <input type="radio" name="asistencia" value="si" checked>
+                    <span class="custom-radio"></span>
+                    <span class="asistencia-label">Sí, asistiré</span>
+                </label>
+                <label class="asistencia-option">
+                    <input type="radio" name="asistencia" value="no">
+                    <span class="custom-radio"></span>
+                    <span class="asistencia-label">No podré asistir</span>
+                </label>
+            </div>
+
+            <button class="btn-confirm" onclick="enviarWhatsApp()">ENVIAR CONFIRMACIÓN</button>
+        </div>
+    </div>
+
+    <audio id="cancion" loop><source src="https://files.catbox.moe/pb1ziw.mp3" type="audio/mpeg"></audio>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", { "particles": { "number": { "value": 30 }, "color": { "value": "#d9ac62" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3 }, "size": { "value": 3 }, "move": { "enable": true, "speed": 1, "direction": "bottom" } } });
+        
+        const audio = document.getElementById('cancion');
+        const iconoMusica = document.getElementById('iconoMusica');
+
+        function comenzarTodo() { 
+            document.getElementById('pantalla-inicio').classList.add('ocultar'); 
+            audio.currentTime = 0; 
+            audio.play(); 
+            iconoMusica.innerText = "🎵";
+        }
+
+        function toggleMusica() {
+            if (audio.paused) { audio.play(); iconoMusica.innerText = "🎵"; } 
+            else { audio.pause(); iconoMusica.innerText = "🔇"; }
+        }
+
+        const fechaBoda = new Date("May 16, 2026 16:00:00").getTime();
+        setInterval(() => {
+            const ahora = new Date().getTime();
+            const diff = fechaBoda - ahora;
+            if (diff > 0) {
+                document.getElementById('dias').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('horas').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('min').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('seg').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }, 1000);
+
+        function enviarWhatsApp() { 
+            const nombre = document.getElementById('nombreInvitado').value;
+            const asistencia = document.querySelector('input[name="asistencia"]:checked').value;
+            
+            if(!nombre) { alert("Por favor, ingresa tu nombre"); return; }
+
+            const mensajeAsistencia = asistencia === 'si' 
+                ? '✨ ¡Hola! Confirmo con mucha alegría mi asistencia a su boda. 🥂' 
+                : '😔 ¡Hola! Lamentablemente no podré asistirlos en su gran día, pero les deseo lo mejor.';
+
+            const textoFinal = `👰🤵 *Confirmación de Boda*\n\n*Nombre:* ${nombre}\n*Respuesta:* ${mensajeAsistencia}`;
+            
+            window.open(`https://wa.me/584128804801?text=${encodeURIComponent(textoFinal)}`); 
+        }
+    </script>
+</body>
+</html>
